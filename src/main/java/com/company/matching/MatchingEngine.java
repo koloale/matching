@@ -26,10 +26,11 @@ public class MatchingEngine {
 
         writeClientsToFile(clientRepository.findAll(), Paths.get(args[2]));
 
-        clientRepository.printInstrumentsDepo("Instruments Depo Before: ");
+        System.out.println("Processing orders finished.");
+        clientRepository.printInstrumentsDepo("Instruments Depo After:  ");
     }
 
-    public static List<Client> readClients(Path path) {
+    static List<Client> readClients(Path path) {
 
         ArrayList<Client> clients = new ArrayList<>();
         try(Stream<String> lines = Files.lines(path)) {
@@ -57,7 +58,7 @@ public class MatchingEngine {
         return clients;
     }
 
-    public static List<Order> readOrders(Path path) {
+    static List<Order> readOrders(Path path) {
 
         ArrayList<Order> clients = new ArrayList<>();
         try(Stream<String> lines = Files.lines(path)) {
@@ -84,7 +85,7 @@ public class MatchingEngine {
         return clients;
     }
 
-    public static void writeClientsToFile(List<Client> clients, Path path) {
+    static void writeClientsToFile(List<Client> clients, Path path) {
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {
             writer.write(clients.stream().map(Client::toOutputString).collect(Collectors.joining("\n")));
         } catch (IOException e) {
